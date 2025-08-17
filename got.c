@@ -36,7 +36,7 @@ int protocol(char* command, char** commandArray) {
   switch (expression) {
 
   case 0: // init
-    
+      
     break;
   case 1: // add
 
