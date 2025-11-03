@@ -62,7 +62,7 @@ int createConfigFile(){
 // returns 0 on success, 1 on directory already exists, -1 on fail
 int createEmptyDirectory(char* dirname){
   mode_t permissions = S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IWGRP | S_IXGRP;
-  errno = 0;
+  errno = 0; // clears the error checker so the success results making the dir are accurate
   int directorySuccess  = mkdir(dirname, permissions);
   if(errno == EEXIST){
     printf("directory already exists\n");
@@ -70,7 +70,7 @@ int createEmptyDirectory(char* dirname){
   }
   else if (directorySuccess != 0) {
     printf("error creating directory\n");
-    return 1;
+    return -1;
   }
   else {
     return 0;
@@ -88,7 +88,7 @@ int newBranch(char* dirname, char* branchName) {
   return 0;
 }
 
-int init(){
+int init(char* userCommand){
   char* dirname = "vcs"; 
   if(createEmptyDirectory(dirname) == 1) {
     printf("failed vcs directory creation\n");
@@ -130,12 +130,21 @@ int protocol(char* userCommand, char** commandArray) {
 
   switch (expression) {
     case 0: // init
-      init();
+      init(userCommand);
       break;
+
     case 1: // add
+      add(userCommand);
       break;
+
     case 2: // commit
+      commit(userCommand);
       break;
+
+    case 3: // push
+      push(userCommand);
+      break;
+
     default:
       break;
   }
