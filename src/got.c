@@ -38,7 +38,7 @@ int pull(){ return 0;
 // to open the GUI if they want to merge with the most current
 // branch end
 int commit(char* message){
-
+  
 
 
 }
@@ -144,7 +144,13 @@ int protocol(char* userCommand, char** commandArray) {
     case 3: // push
       push(userCommand);
       break;
+      
+    case 4:
+      install();
+      break;
 
+    case 5:
+      uninstall();
     default:
       break;
   }
@@ -153,7 +159,7 @@ int protocol(char* userCommand, char** commandArray) {
 
 int main(int argc, char** argv) {
   printf("Hello World\n");
-  char* commandArray[] = { "init", "add", "commit", "push" };
+  char* commandArray[] = { "init", "add", "commit", "push", "install", "uninstall" };
   printf("you typed %s\n", argv[1]);
   protocol(argv[1], commandArray);
   return 0;
