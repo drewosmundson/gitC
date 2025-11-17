@@ -102,21 +102,12 @@ int init(char* userCommand){
   createConfigFile();
 }
 
-// string comparison, this function returns 0 if the same, 1 if not the same
-int stringComparison(char* string1, char* string2){
-  int lexographicComparison = strcmp(string1, string2);
-  if (lexographicComparison == 0){
-    return 0;
-  }
-  return 1;
-}
-
 // returns 0 to for matching corisiponding commandArray location to a certain one on the command list
 // returns -1 if command not found
 int findTheMatchingCommand(char* userCommand, char** commandArray){
   for(int i = 0; i < sizeof(commandArray); i++){
     printf("%s\n", commandArray[i]);
-    if (stringComparison(userCommand, commandArray[i]) == 0) {
+    if (strcmp(userCommand, commandArray[i]) == 0) {
       return i;
     }
   }
@@ -124,8 +115,8 @@ int findTheMatchingCommand(char* userCommand, char** commandArray){
 }
 
 
-int protocol(char* userCommand, char** commandArray) {
-
+int protocol(char* userCommand) {
+  char** commandArray[] = { "init", "add", "commit", "push", "install", "uninstall" };
   int expression = findTheMatchingCommand(userCommand, commandArray);
 
   switch (expression) {
@@ -159,9 +150,8 @@ int protocol(char* userCommand, char** commandArray) {
 
 int main(int argc, char** argv) {
   printf("Hello World\n");
-  char* commandArray[] = { "init", "add", "commit", "push", "install", "uninstall" };
   printf("you typed %s\n", argv[1]);
-  protocol(argv[1], commandArray);
+  protocol(argv[1]);
   return 0;
 }
 
