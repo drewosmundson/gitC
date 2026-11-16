@@ -17,7 +17,8 @@
 
 #include <errno.h> // After a failed system call or library function, errno can be checked to determine the specific error that occurred.
 
-
+#include <commands.h> // module of commands callable from this main fuction. they are included from an intermediate place to 
+// reduce editing this main file.
 
 // there can be just one stash
 // is local to own machine
